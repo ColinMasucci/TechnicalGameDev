@@ -1,27 +1,42 @@
+//New Player script that is closer to TRON (header)
 #pragma once
-#include "Object.h"
+#include <SFML/Graphics.hpp>
 #include "Vector.h"
-#include "EventKeyboard.h"
+#include "Object.h"
+
+
+#include "EventCollision.h"
 
 class Player : public df::Object {
+
+	float PLAYER_SPEED = .5f;
 private:
     int m_player_id;                // 1 or 2
-    df::Vector m_target_pos;        // current target grid cell
-    bool m_moving;                  // true if moving toward target
-    int m_score;                    // how many cells are claimed
+
+private:
+    bool m_alive;
 
 public:
     Player(int id, df::Vector start_pos);
+    df::Vector m_target_dir;        // current moving direction
+	df::Vector m_target_pos;		// current target grid cell
+    df::Vector m_prev_pos;		// previous target grid cell
 
     int eventHandler(const df::Event* p_e) override;
-    int draw() override;
+    //int draw() override;
 
-    void update();                  // called every step
-    int getScore() const { return m_score; }
-    void incrementScore() { m_score++; }
-    void decrementScore() { m_score--; }
+    int handleInput(const df::Event* p_e);
+    void update();
+    int handleCollision(const df::EventCollision* p_c);
+    
 
-private:
-    void startMove(const df::Vector& dir);
-    void leaveMarker(const df::Vector& cell);
+    bool isAlive() const { return m_alive; }
+    void updateTarget();
+
+    void leaveMarker();
+
+    df::Vector multiplyVector(const df::Vector& v, float scalar);
+
+    void die();
+    void spawnParticle(const df::Vector& pos);
 };

@@ -6,6 +6,7 @@
 #include "GameManager.h"
 #include "LogManager.h"
 #include "WorldManager.h"
+#include "ResourceManager.h"
 
 #include "Player.h"
 
@@ -45,7 +46,7 @@ int main(int argc, char *argv[]) {
 
 void loadResources(void) {
     // Load sprites.
-    //RM.loadSprite("sprites/sprites/saucer-spr.txt", "saucer");
+    RM.loadSprite("sprites/player.txt", "player");
     
     //Load Sounds
     //RM.loadSound("sounds/sounds/fire.wav", "fire");

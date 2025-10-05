@@ -1,0 +1,100 @@
+#include "PlayerPointTracker.h"
+#include "Marker.h"
+#include "WorldManager.h"
+#include "EventStep.h"
+#include "EventKeyboard.h"
+#include "DisplayManager.h"
+
+PlayerPointTracker::PlayerPointTracker(int id, df::Vector start_pos)
+    : m_player_id(id), m_target_pos(start_pos), m_moving(false), m_score(0) {
+
+    setType("PlayerPointTracker");
+    setSolidness(df::HARD);
+    setPosition(start_pos);
+    setAltitude(1);
+
+    // register for events
+    registerInterest(df::STEP_EVENT);
+    registerInterest(df::KEYBOARD_EVENT);
+}
+
+int PlayerPointTracker::eventHandler(const df::Event* p_e) {
+    if (p_e->getType() == df::STEP_EVENT) {
+        update();
+        return 1;
+    }
+
+    if (p_e->getType() == df::KEYBOARD_EVENT) {
+        const auto* p_k = dynamic_cast<const df::EventKeyboard*>(p_e);
+        if (!p_k || m_moving)       // can’t change direction mid-move
+            return 0;
+
+        if (p_k->getKeyboardAction() == df::KEY_PRESSED) {
+            df::Vector dir(0, 0);
+            if (m_player_id == 1) {
+                // WASD
+                if (p_k->getKey() == df::Keyboard::W) dir = df::Vector(0, -1);
+                else if (p_k->getKey() == df::Keyboard::S) dir = df::Vector(0, 1);
+                else if (p_k->getKey() == df::Keyboard::A) dir = df::Vector(-1, 0);
+                else if (p_k->getKey() == df::Keyboard::D) dir = df::Vector(1, 0);
+            }
+            else {
+                // Arrow keys
+                if (p_k->getKey() == df::Keyboard::UPARROW) dir = df::Vector(0, -1);
+                else if (p_k->getKey() == df::Keyboard::DOWNARROW) dir = df::Vector(0, 1);
+                else if (p_k->getKey() == df::Keyboard::LEFTARROW) dir = df::Vector(-1, 0);
+                else if (p_k->getKey() == df::Keyboard::RIGHTARROW) dir = df::Vector(1, 0);
+            }
+
+            if (dir.getMagnitude() > 0)      // picked a direction
+                startMove(dir);
+        }
+        return 1;
+    }
+    return 0;
+}
+
+void PlayerPointTracker::startMove(const df::Vector& dir) {
+    // leave marker behind
+    leaveMarker(getPosition());
+
+    // set next target cell
+    m_target_pos = getPosition() + dir;
+    m_moving = true;
+}
+
+void PlayerPointTracker::update() {
+    if (!m_moving) return;
+
+    // move gradually toward target
+    df::Vector pos = getPosition();
+    df::Vector diff = m_target_pos - pos;
+
+    // step by 0.2 per frame (tweak for speed)
+    float step = 0.2f;
+    if (fabs(diff.getX()) > step) pos.setX(pos.getX() + step * (diff.getX() > 0 ? 1 : -1));
+    else                          pos.setX(m_target_pos.getX());
+
+    if (fabs(diff.getY()) > step) pos.setY(pos.getY() + step * (diff.getY() > 0 ? 1 : -1));
+    else                          pos.setY(m_target_pos.getY());
+
+    setPosition(pos);
+
+    // reached grid cell
+    if (pos == m_target_pos)
+        m_moving = false;
+}
+
+void PlayerPointTracker::leaveMarker(const df::Vector& cell) {
+    // Create a marker at the cell we just left
+    Marker* m = new Marker(m_player_id, cell);
+    WM.insertObject(m);
+}
+
+int PlayerPointTracker::draw() {
+    // simple colored square
+    char c = (m_player_id == 1 ? '1' : '2');
+    df::Color color = (m_player_id == 1 ? df::YELLOW : df::CYAN);
+    DM.drawCh(getPosition(), c, color);
+    return 0;
+}
