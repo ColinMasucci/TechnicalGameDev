@@ -80,13 +80,13 @@ int Player::handleInput(const df::Event* p_e) {
         // Ignore zero vector
         if (dir != df::Vector(0, 0)) {
 
-            // Check we are not reversing direction (no 180° turns)
-            bool reversing_x = (dir.getX() > 0 && m_target_dir.getX() > 0) ||
-                (dir.getX() < 0 && m_target_dir.getX() < 0);
-            bool reversing_y = (dir.getY() > 0 && m_target_dir.getY() > 0) ||
-                (dir.getY() < 0 && m_target_dir.getY() < 0);
+            // Check we are not reversing direction (no 180 degree turns)
+            bool reversing_x = (dir.getX() > 0 && m_target_dir.getX() < 0) ||
+                (dir.getX() < 0 && m_target_dir.getX() > 0);
+            bool reversing_y = (dir.getY() > 0 && m_target_dir.getY() < 0) ||
+                (dir.getY() < 0 && m_target_dir.getY() > 0);
 
-            // If the new direction is not opposite of current (so 90° turn is allowed)
+            // If the new direction is not opposite of current (so 90 degree turn is allowed)
             if (!(reversing_x || reversing_y)) {
 
                 // Scale Y movement to match X speed
