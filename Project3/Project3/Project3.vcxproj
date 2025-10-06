@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="GridManager.cpp" />
     <ClCompile Include="Marker.cpp" />
@@ -27,6 +28,7 @@
     <ClCompile Include="ScoreDisplay.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Explosion.h" />
     <ClInclude Include="GridManager.h" />
     <ClInclude Include="Marker.h" />
     <ClInclude Include="Player.h" />

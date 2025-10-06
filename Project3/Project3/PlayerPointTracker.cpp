@@ -6,6 +6,7 @@
 #include "DisplayManager.h"
 #include "GridManager.h"
 #include "ObjectList.h"
+#include "Explosion.h"
 
 #include <iostream>
 
@@ -73,6 +74,20 @@ int PlayerPointTracker::eventHandler(const df::Event* p_e) {
             }
         }
 
+        // Ability activation
+        if (p_k->getKeyboardAction() == df::KEY_PRESSED) {
+            if (m_time_since_last >= m_cooldown) {
+                if (m_player_id == 1 && p_k->getKey() == df::Keyboard::Q) {
+                    useLaser();
+                    m_time_since_last = 0.0f;
+                }
+                else if (m_player_id == 2 && p_k->getKey() == df::Keyboard::RIGHTCONTROL) {
+                    useBomb();
+                    m_time_since_last = 0.0f;
+                }
+            }
+        }
+
         return 1;
     }
     return 0;
@@ -88,6 +103,9 @@ void PlayerPointTracker::startMove(const df::Vector& dir) {
 }
 
 void PlayerPointTracker::update() {
+    // accumulate time since last ability
+    m_time_since_last += 1.0f / 30.0f;
+
     if (!m_moving && !m_pressing_move) return;
 
     // move gradually toward target
@@ -149,4 +167,47 @@ int PlayerPointTracker::draw() {
     df::Color color = (m_player_id == 1 ? df::YELLOW : df::CYAN);
     DM.drawCh(getPosition(), c, color);
     return 0;
+}
+
+
+
+void PlayerPointTracker::useLaser() {
+    df::Vector pos = getPosition();
+    df::Vector dir = m_target_dir;
+    if (dir.getMagnitude() == 0)    // if not moving, pick default up
+        dir = df::Vector(0, -1);
+
+    GridManager& grid = GridManager::getInstance();
+
+    // maximum distance e.g. 10 cells
+    for (int i = 1; i <= 10; ++i) {
+		df::Vector newDir = df::Vector(dir.getX() * i, dir.getY() * i);
+        df::Vector cell = pos + newDir;
+
+        // claim this cell
+        leaveMarker(cell);
+
+        // for animation, create a special marker (red beam)
+        Marker* beam = new Marker(m_player_id, cell);
+        //beam->setTemporary(true);         // we’ll remove it after some frames
+        //WM.insertObject(beam);
+    }
+}
+
+void PlayerPointTracker::useBomb() {
+    df::Vector center = getPosition();
+    GridManager& grid = GridManager::getInstance();
+
+    // 4x4 area centered on player
+    int radius = 2;
+    for (int dx = -radius; dx <= radius; ++dx) {
+        for (int dy = -radius; dy <= radius; ++dy) {
+            df::Vector cell = center + df::Vector(dx, dy);
+            leaveMarker(cell);
+        }
+    }
+    // spawn explosion
+    df::Vector pos = getPosition();
+    Explosion* explosion = new Explosion(pos);
+    WM.insertObject(explosion);
 }

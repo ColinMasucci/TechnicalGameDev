@@ -12,6 +12,10 @@ private:
     int m_score;                    // how many cells are claimed
     bool m_pressing_move;
 
+    float m_cooldown = 5.0f;         // seconds
+    float m_time_since_last = 0.0f;  // seconds
+    bool  m_ability_active = false;
+
 
 public:
     PlayerPointTracker(int id, df::Vector start_pos);
@@ -24,6 +28,10 @@ public:
     int getScore() const { return m_score; }
     void incrementScore() { m_score++; }
     void decrementScore() { m_score--; }
+
+
+    void useLaser();
+    void useBomb();
 
 private:
     void startMove(const df::Vector& dir);

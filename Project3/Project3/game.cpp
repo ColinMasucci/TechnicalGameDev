@@ -52,6 +52,7 @@ void loadResources(void) {
     RM.loadSprite("sprites/player2.txt", "player2");
     RM.loadSprite("sprites/marker1.txt", "marker1");
     RM.loadSprite("sprites/marker2.txt", "marker2");
+    RM.loadSprite("sprites/explosion.txt", "explosion");
     
     //Load Sounds
     //RM.loadSound("sounds/sounds/fire.wav", "fire");
