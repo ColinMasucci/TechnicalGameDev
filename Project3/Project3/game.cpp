@@ -56,8 +56,14 @@ void loadResources(void) {
 }
 
 void populateWorld(void) {
-    Player* p1 = new Player(1, df::Vector(5, 5));
-    Player* p2 = new Player(2, df::Vector(30, 20));
+    // Note: Constant speed not updated yet for PlayerPointTracker, but able to implement point system
+    //Player* p1 = new Player(1, df::Vector(5, 5));
+    //Player* p2 = new Player(2, df::Vector(50, 20));
+
+    PlayerPointTracker* p1 = new PlayerPointTracker(1, df::Vector(5, 5));
+    PlayerPointTracker* p2 = new PlayerPointTracker(2, df::Vector(50, 20));
+
+    new ScoreDisplay(p1, p2);
 
     WM.insertObject(p1);
     WM.insertObject(p2);
