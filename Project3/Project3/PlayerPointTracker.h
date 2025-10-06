@@ -15,6 +15,7 @@ public:
 
     int eventHandler(const df::Event* p_e) override;
     int draw() override;
+    int getId() const { return m_player_id; } // to check for player ID
 
     void update();                  // called every step
     int getScore() const { return m_score; }
