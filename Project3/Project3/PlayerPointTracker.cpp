@@ -49,7 +49,7 @@ int PlayerPointTracker::eventHandler(const df::Event* p_e) {
             }
         }
 
-        if (p_k->getKeyboardAction() == df::KEY_PRESSED) {
+        if (p_k->getKeyboardAction() == df::KEY_DOWN) {
             df::Vector dir(0, 0);
             if (m_player_id == 1) {
                 // WASD
