@@ -20,7 +20,10 @@ Player::Player(int id, df::Vector start_pos)
     : m_player_id(id), m_alive(true){
 
     setType("Player");
-    setSprite("player");
+    if (m_player_id == 1)
+        setSprite("player1");
+    else
+		setSprite("player2");
     setSolidness(df::HARD);
     setPosition(start_pos);
     setAltitude(1);
@@ -50,7 +53,7 @@ int Player::eventHandler(const df::Event* p_e) {
     }
 
     if (p_e->getType() == df::COLLISION_EVENT) {
-        return handleCollision(static_cast<const df::EventCollision*>(p_e));
+        return handleCollision(p_e);
     }
     return 0;
 }
@@ -115,7 +118,9 @@ void Player::update() {
     
 }
 
-int Player::handleCollision(const df::EventCollision* p_c) {
+int Player::handleCollision(const df::Event* p_e) {
+    const auto* p_c = dynamic_cast<const df::EventCollision*>(p_e);
+
     // Identify the other object
     df::Object* p_obj1 = p_c->getObject1();
     df::Object* p_obj2 = p_c->getObject2();
@@ -168,7 +173,7 @@ void Player::die() {
     m_alive = false;
     setVelocity(df::Vector(0, 0)); // stop moving
     setSolidness(df::SPECTRAL);     // become non-collidable
-	spawnParticle(getPosition());
+	//spawnParticle(getPosition());  //causes crash
 }
 
 void Player::spawnParticle(const df::Vector& pos) {

@@ -46,7 +46,10 @@ int main(int argc, char *argv[]) {
 
 void loadResources(void) {
     // Load sprites.
-    RM.loadSprite("sprites/player.txt", "player");
+    RM.loadSprite("sprites/player1.txt", "player1");
+    RM.loadSprite("sprites/player2.txt", "player2");
+    RM.loadSprite("sprites/marker1.txt", "marker1");
+    RM.loadSprite("sprites/marker2.txt", "marker2");
     
     //Load Sounds
     //RM.loadSound("sounds/sounds/fire.wav", "fire");

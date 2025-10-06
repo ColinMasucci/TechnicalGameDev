@@ -27,7 +27,7 @@ public:
 
     int handleInput(const df::Event* p_e);
     void update();
-    int handleCollision(const df::EventCollision* p_c);
+    int handleCollision(const df::Event* p_e);
     
 
     bool isAlive() const { return m_alive; }

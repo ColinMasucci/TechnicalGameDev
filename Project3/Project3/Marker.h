@@ -9,5 +9,5 @@ public:
     Marker(int owner, df::Vector pos);
     int getOwner() const { return m_owner; }
 
-    int draw() override;
+    //int draw() override;
 };
