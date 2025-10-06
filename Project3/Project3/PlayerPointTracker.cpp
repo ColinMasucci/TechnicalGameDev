@@ -4,6 +4,10 @@
 #include "EventStep.h"
 #include "EventKeyboard.h"
 #include "DisplayManager.h"
+#include "GridManager.h"
+#include "ObjectList.h"
+
+
 
 PlayerPointTracker::PlayerPointTracker(int id, df::Vector start_pos)
     : m_player_id(id), m_target_pos(start_pos), m_moving(false), m_score(0) {
@@ -26,7 +30,7 @@ int PlayerPointTracker::eventHandler(const df::Event* p_e) {
 
     if (p_e->getType() == df::KEYBOARD_EVENT) {
         const auto* p_k = dynamic_cast<const df::EventKeyboard*>(p_e);
-        if (!p_k || m_moving)       // can’t change direction mid-move
+        if (!p_k || m_moving)       // canâ€™t change direction mid-move
             return 0;
 
         if (p_k->getKeyboardAction() == df::KEY_PRESSED) {
@@ -86,7 +90,30 @@ void PlayerPointTracker::update() {
 }
 
 void PlayerPointTracker::leaveMarker(const df::Vector& cell) {
-    // Create a marker at the cell we just left
+    int x = static_cast<int>(cell.getX());
+    int y = static_cast<int>(cell.getY());
+
+    GridManager& grid = GridManager::getInstance();
+    int prev_owner = grid.getOwner(x, y);
+
+    // Update scores if cell is being repainted
+    if (prev_owner != m_player_id) {
+        if (prev_owner != 0) {
+            // find previous owner and decrement their score
+            df::ObjectList objs = WM.objectsOfType("PlayerPointTracker");
+            for (df::ObjectListIterator it(&objs); !it.isDone(); it.next()) {
+                auto* player = dynamic_cast<PlayerPointTracker*>(it.currentObject());
+                if (player && player->getId() == prev_owner)
+                    player->decrementScore();
+            }
+        }
+
+        // Increment this player's score
+        incrementScore();
+        grid.claimCell(x, y, m_player_id);
+    }
+
+    // Create or recolor the marker visually
     Marker* m = new Marker(m_player_id, cell);
     WM.insertObject(m);
 }
