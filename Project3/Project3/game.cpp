@@ -9,6 +9,8 @@
 #include "ResourceManager.h"
 
 #include "Player.h"
+#include "PlayerPointTracker.h"
+#include "ScoreDisplay.h"
 
 void loadResources(void);
 void populateWorld(void);

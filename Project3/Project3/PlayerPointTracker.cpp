@@ -7,6 +7,8 @@
 #include "GridManager.h"
 #include "ObjectList.h"
 
+#include <iostream>
+
 
 
 PlayerPointTracker::PlayerPointTracker(int id, df::Vector start_pos)
@@ -20,6 +22,8 @@ PlayerPointTracker::PlayerPointTracker(int id, df::Vector start_pos)
     // register for events
     registerInterest(df::STEP_EVENT);
     registerInterest(df::KEYBOARD_EVENT);
+
+	m_pressing_move = false;
 }
 
 int PlayerPointTracker::eventHandler(const df::Event* p_e) {
@@ -30,6 +34,12 @@ int PlayerPointTracker::eventHandler(const df::Event* p_e) {
 
     if (p_e->getType() == df::KEYBOARD_EVENT) {
         const auto* p_k = dynamic_cast<const df::EventKeyboard*>(p_e);
+
+        if (p_k->getKeyboardAction() == df::KEY_RELEASED) {
+            m_pressing_move = false;
+            std::cout << " FALSE ";
+        }
+
         if (!p_k || m_moving)       // can’t change direction mid-move
             return 0;
 
@@ -50,9 +60,14 @@ int PlayerPointTracker::eventHandler(const df::Event* p_e) {
                 else if (p_k->getKey() == df::Keyboard::RIGHTARROW) dir = df::Vector(1, 0);
             }
 
-            if (dir.getMagnitude() > 0)      // picked a direction
+            if (dir.getMagnitude() > 0) {      // picked a direction
+                m_pressing_move = true;
+                std::cout << " TRUE ";
+                m_target_dir = dir;
                 startMove(dir);
+            }
         }
+
         return 1;
     }
     return 0;
@@ -85,8 +100,13 @@ void PlayerPointTracker::update() {
     setPosition(pos);
 
     // reached grid cell
-    if (pos == m_target_pos)
+    if (pos == m_target_pos) {
         m_moving = false;
+        if (m_pressing_move) {
+            startMove(m_target_dir); // continue if still pressing
+        }
+    }
+        
 }
 
 void PlayerPointTracker::leaveMarker(const df::Vector& cell) {

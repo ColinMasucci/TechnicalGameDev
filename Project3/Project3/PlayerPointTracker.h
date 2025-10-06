@@ -7,8 +7,11 @@ class PlayerPointTracker : public df::Object {
 private:
     int m_player_id;                // 1 or 2
     df::Vector m_target_pos;        // current target grid cell
+    df::Vector m_target_dir;        // current target grid cell direction
     bool m_moving;                  // true if moving toward target
     int m_score;                    // how many cells are claimed
+    bool m_pressing_move;
+
 
 public:
     PlayerPointTracker(int id, df::Vector start_pos);
