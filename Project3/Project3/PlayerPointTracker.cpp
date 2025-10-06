@@ -35,13 +35,19 @@ int PlayerPointTracker::eventHandler(const df::Event* p_e) {
     if (p_e->getType() == df::KEYBOARD_EVENT) {
         const auto* p_k = dynamic_cast<const df::EventKeyboard*>(p_e);
 
-        if (p_k->getKeyboardAction() == df::KEY_RELEASED) {
-            m_pressing_move = false;
-            std::cout << " FALSE ";
-        }
+		if (!p_k) return 0;
 
-        if (!p_k || m_moving)       // can’t change direction mid-move
-            return 0;
+        if (p_k->getKeyboardAction() == df::KEY_RELEASED) {
+
+            if (m_player_id == 1) {
+                // WASD
+                if (p_k->getKey() == df::Keyboard::W || p_k->getKey() == df::Keyboard::S || p_k->getKey() == df::Keyboard::A || p_k->getKey() == df::Keyboard::D) m_pressing_move = false;
+            }
+            else {
+                // Arrow keys
+                if (p_k->getKey() == df::Keyboard::UPARROW || p_k->getKey() == df::Keyboard::DOWNARROW || p_k->getKey() == df::Keyboard::LEFTARROW || p_k->getKey() == df::Keyboard::RIGHTARROW) m_pressing_move = false;
+            }
+        }
 
         if (p_k->getKeyboardAction() == df::KEY_PRESSED) {
             df::Vector dir(0, 0);
@@ -62,9 +68,8 @@ int PlayerPointTracker::eventHandler(const df::Event* p_e) {
 
             if (dir.getMagnitude() > 0) {      // picked a direction
                 m_pressing_move = true;
-                std::cout << " TRUE ";
                 m_target_dir = dir;
-                startMove(dir);
+				if (!m_moving) startMove(dir);
             }
         }
 
@@ -83,7 +88,7 @@ void PlayerPointTracker::startMove(const df::Vector& dir) {
 }
 
 void PlayerPointTracker::update() {
-    if (!m_moving) return;
+    if (!m_moving && !m_pressing_move) return;
 
     // move gradually toward target
     df::Vector pos = getPosition();
