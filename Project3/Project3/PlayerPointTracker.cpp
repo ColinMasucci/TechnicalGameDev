@@ -8,6 +8,8 @@
 #include "ObjectList.h"
 #include "Explosion.h"
 
+#include "Border.h"
+
 #include <iostream>
 
 
@@ -112,6 +114,11 @@ void PlayerPointTracker::update() {
     df::Vector pos = getPosition();
     df::Vector diff = m_target_pos - pos;
 
+    // Border safety check
+    if (m_target_pos.getX() > 69 || m_target_pos.getX() < 2  || m_target_pos.getY() > 23 || m_target_pos.getY() < 2) {
+        m_target_pos = pos;
+    }
+
     // step by 0.2 per frame (tweak for speed)
     float step = 0.2f;
     if (fabs(diff.getX()) > step) pos.setX(pos.getX() + step * (diff.getX() > 0 ? 1 : -1));
@@ -120,7 +127,8 @@ void PlayerPointTracker::update() {
     if (fabs(diff.getY()) > step) pos.setY(pos.getY() + step * (diff.getY() > 0 ? 1 : -1));
     else                          pos.setY(m_target_pos.getY());
 
-    setPosition(pos);
+    setPosition(m_target_pos);
+
 
     // reached grid cell
     if (pos == m_target_pos) {
