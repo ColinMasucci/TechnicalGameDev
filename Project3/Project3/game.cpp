@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "PlayerPointTracker.h"
 #include "ScoreDisplay.h"
+#include "Border.h"
 
 void loadResources(void);
 void populateWorld(void);
@@ -59,9 +60,12 @@ void loadResources(void) {
 }
 
 void populateWorld(void) {
-    // Note: Constant speed not updated yet for PlayerPointTracker, but able to implement point system
-    //Player* p1 = new Player(1, df::Vector(5, 5));
-    //Player* p2 = new Player(2, df::Vector(50, 20));
+    // --- Create border first (draws behind everything else) ---
+    int left = 1;
+    int right = 70;     // adjust width as you prefer
+    int top = 1;
+    int bottom = 24;    // adjust height as you prefer
+    new Border(left, right, top, bottom);
 
     PlayerPointTracker* p1 = new PlayerPointTracker(1, df::Vector(5, 5));
     PlayerPointTracker* p2 = new PlayerPointTracker(2, df::Vector(50, 20));

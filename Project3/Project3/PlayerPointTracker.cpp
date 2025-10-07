@@ -7,7 +7,7 @@
 #include "GridManager.h"
 #include "ObjectList.h"
 #include "Explosion.h"
-
+#include "Border.h"
 #include <iostream>
 
 
@@ -121,6 +121,20 @@ void PlayerPointTracker::update() {
     else                          pos.setY(m_target_pos.getY());
 
     setPosition(pos);
+
+    // Border safety check
+    df::ObjectList borders = WM.objectsOfType("Border");
+    df::ObjectListIterator it(&borders);
+    for (it.first(); !it.isDone(); it.next()) {
+        auto* border = dynamic_cast<Border*>(it.currentObject());
+        if (border && border->isOutside(pos)) {
+            // teleport back to previous valid cell
+            setPosition(m_target_pos - m_target_dir);
+            m_moving = false;
+            m_pressing_move = false;
+            return;
+        }
+    }
 
     // reached grid cell
     if (pos == m_target_pos) {
