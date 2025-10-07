@@ -223,5 +223,5 @@ void PlayerPointTracker::useBomb() {
     // spawn explosion
     df::Vector pos = getPosition();
     Explosion* explosion = new Explosion(pos);
-    //WM.insertObject(explosion);
+    WM.insertObject(explosion);
 }

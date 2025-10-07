@@ -1,18 +1,40 @@
 <HEADER>
-frames 2
+frames 8
 width 5
 height 3
 color red
-slowdown 4
 </HEADER>
 <BODY>
-     
- .* .
-     
+
+
 end
-. ** 
- .* .
-* * .
+  
+*** *
+end
+ 
+. *
+ 
+end
+ . 
+.
+ . 
+end
+ * 
+. .
+ *** 
+end
+ 
+.
+.   *
+ 
+*
+end
+    *
+*
+end
+    .
+.
+
 end
 </BODY>
 <FOOTER>

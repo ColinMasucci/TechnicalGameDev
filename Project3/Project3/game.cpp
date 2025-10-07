@@ -65,7 +65,7 @@ void populateWorld(void) {
     int right = 70;     // adjust width as you prefer
     int top = 1;
     int bottom = 24;    // adjust height as you prefer
-    Border* border = new Border(left, right, top, bottom);
+    new Border(left, right, top, bottom);
 
     PlayerPointTracker* p1 = new PlayerPointTracker(1, df::Vector(5, 5));
     PlayerPointTracker* p2 = new PlayerPointTracker(2, df::Vector(50, 20));
@@ -74,6 +74,4 @@ void populateWorld(void) {
 
     WM.insertObject(p1);
     WM.insertObject(p2);
-
-	WM.insertObject(border);
 }
