@@ -24,7 +24,7 @@ int Explosion::eventHandler(const df::Event* p_e) {
         m_current_frame = m_current_frame+1;
         // When we reach the last frame, remove ourselves
         if (m_current_frame >= m_frame_count) {
-            //WM.markForDelete(this);
+            WM.markForDelete(this);
         }
         return 1;
     }
