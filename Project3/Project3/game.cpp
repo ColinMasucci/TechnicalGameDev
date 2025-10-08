@@ -12,6 +12,7 @@
 #include "PlayerPointTracker.h"
 #include "ScoreDisplay.h"
 #include "Border.h"
+#include "Timer.h"
 
 void loadResources(void);
 void populateWorld(void);
@@ -54,6 +55,8 @@ void loadResources(void) {
     RM.loadSprite("sprites/marker1.txt", "marker1");
     RM.loadSprite("sprites/marker2.txt", "marker2");
     RM.loadSprite("sprites/explosion.txt", "explosion");
+    RM.loadSprite("sprites/player1_wins.txt", "player1_wins");
+    RM.loadSprite("sprites/player2_wins.txt", "player2_wins");
     
     //Load Sounds
     //RM.loadSound("sounds/sounds/fire.wav", "fire");
@@ -75,6 +78,8 @@ void populateWorld(void) {
     PlayerPointTracker* p2 = new PlayerPointTracker(2, df::Vector(50, 20));
 
     new ScoreDisplay(p1, p2);
+
+    new Timer(10);
 
     WM.insertObject(p1);
     WM.insertObject(p2);
