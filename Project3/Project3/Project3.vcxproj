@@ -27,6 +27,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerPointTracker.cpp" />
     <ClCompile Include="ScoreDisplay.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Border.h" />
@@ -36,6 +37,16 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerPointTracker.h" />
     <ClInclude Include="ScoreDisplay.h" />
+    <ClInclude Include="Timer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="player1_wins.txt" />
+    <Text Include="player2_wins.txt" />
+    <Text Include="sprites\explosion.txt" />
+    <Text Include="sprites\marker1.txt" />
+    <Text Include="sprites\marker2.txt" />
+    <Text Include="sprites\player1.txt" />
+    <Text Include="sprites\player2.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

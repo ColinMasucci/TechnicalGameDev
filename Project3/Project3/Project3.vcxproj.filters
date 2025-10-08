@@ -39,6 +39,9 @@
     <ClCompile Include="Border.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ScoreDisplay.h">
@@ -62,5 +65,31 @@
     <ClInclude Include="PlayerPointTracker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="sprites\explosion.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="sprites\marker1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="sprites\marker2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="sprites\player1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="sprites\player2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="player2_wins.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="player1_wins.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
