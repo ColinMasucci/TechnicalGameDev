@@ -27,7 +27,6 @@ int Timer::eventHandler(const df::Event* p_e) {
             m_steps_remaining = 0;
             m_time_up = true;
 
-            new GameOver();
 
             // Pause players
             PlayerPointTracker* p1 = nullptr;
@@ -44,7 +43,14 @@ int Timer::eventHandler(const df::Event* p_e) {
 
             // display the winner
             if (p1 && p2) {
-                // new WinnerDisplay(p1, p2);
+                int winner = 0;
+                if (p1->getScore() > p2->getScore()) {
+                    winner = 1;
+                }
+                else if (p2->getScore() > p1->getScore()) {
+                    winner = 2;
+				}
+                new GameOver(winner);
             }
         }
         return 1;

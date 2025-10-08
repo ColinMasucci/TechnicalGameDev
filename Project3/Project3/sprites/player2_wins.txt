@@ -1,8 +1,8 @@
 <HEADER>
 frames 1
 width 66
-height 9
-color yellow
+height 10
+color blue
 slowdown 15
 </HEADER>
 <BODY>

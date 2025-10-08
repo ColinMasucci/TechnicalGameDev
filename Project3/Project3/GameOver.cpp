@@ -4,18 +4,27 @@
 #include "WorldManager.h"
 #include "GameOver.h"
 #include "GameStart.h"
+#include "DisplayManager.h"
 
-GameOver::GameOver() {
+GameOver::GameOver(int winner) {
 
     setType("GameOver");
 
-	setSprite("player1_wins");
+    if (winner == 1) {
+        setSprite("player1_wins");
+    }
+    else if (winner == 2) {
+        setSprite("player2_wins");
+    }
+    else {
+		setSprite("losers");
+    }
 
     // Put in center of window.
-    setLocation(df::CENTER_CENTER);
+    //setLocation(df::CENTER_CENTER);
+	df::Vector win_pos = df::Vector((float)(DM.getHorizontal() / 2), (float)(DM.getVertical() / 2));
+    setPosition(win_pos);
 
-    // Register for step event.
-    registerInterest(df::STEP_EVENT);
 
     df::ObjectList object_list = WM.getAllObjects(true);
     for (int i = 0; i < object_list.getCount(); i++) {
