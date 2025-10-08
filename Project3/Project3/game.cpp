@@ -13,6 +13,9 @@
 #include "ScoreDisplay.h"
 #include "Border.h"
 #include "Timer.h"
+#include "GameStart.h"
+
+#include <iostream>
 
 void loadResources(void);
 void populateWorld(void);
@@ -59,7 +62,10 @@ void loadResources(void) {
     RM.loadSprite("sprites/player2_wins.txt", "player2_wins");
     
     //Load Sounds
-    //RM.loadSound("sounds/sounds/fire.wav", "fire");
+    RM.loadSound("sounds/explode.wav", "explosion");
+    RM.loadSound("sounds/laser.mp3", "laser");
+    RM.loadSound("sounds/gameover.mp3", "gameover");
+    RM.loadMusic("sounds/theme.wav", "theme");
 }
 
 void populateWorld(void) {
@@ -83,4 +89,7 @@ void populateWorld(void) {
 
     WM.insertObject(p1);
     WM.insertObject(p2);
+
+    // Create GameStart object.
+    new GameStart();
 }

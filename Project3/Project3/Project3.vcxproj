@@ -22,6 +22,8 @@
     <ClCompile Include="Border.cpp" />
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="GameStart.cpp" />
     <ClCompile Include="GridManager.cpp" />
     <ClCompile Include="Marker.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -32,6 +34,8 @@
   <ItemGroup>
     <ClInclude Include="Border.h" />
     <ClInclude Include="Explosion.h" />
+    <ClInclude Include="GameOver.h" />
+    <ClInclude Include="GameStart.h" />
     <ClInclude Include="GridManager.h" />
     <ClInclude Include="Marker.h" />
     <ClInclude Include="Player.h" />

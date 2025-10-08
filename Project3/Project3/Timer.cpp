@@ -4,6 +4,7 @@
 #include "ObjectList.h"
 #include "EventStep.h"
 #include "PlayerPointTracker.h"
+#include "GameOver.h"
 
 
 Timer::Timer(int seconds) {
@@ -11,7 +12,7 @@ Timer::Timer(int seconds) {
     registerInterest(df::STEP_EVENT);
 
     // convert seconds to steps
-    m_steps_remaining = seconds * 30;
+    m_steps_remaining = seconds * 5;
     m_time_up = false;
 
     setSolidness(df::SPECTRAL);
@@ -25,6 +26,8 @@ int Timer::eventHandler(const df::Event* p_e) {
         if (m_steps_remaining <= 0) {
             m_steps_remaining = 0;
             m_time_up = true;
+
+            new GameOver();
 
             // Pause players
             PlayerPointTracker* p1 = nullptr;

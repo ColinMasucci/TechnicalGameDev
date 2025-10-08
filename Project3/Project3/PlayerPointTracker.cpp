@@ -7,6 +7,8 @@
 #include "GridManager.h"
 #include "ObjectList.h"
 #include "Explosion.h"
+#include "Sound.h"
+#include "ResourceManager.h"
 
 #include "Border.h"
 
@@ -199,6 +201,9 @@ void PlayerPointTracker::useLaser() {
         Marker* beam = new Marker(m_player_id, cell);
         //beam->setTemporary(true);         // we’ll remove it after some frames
         //WM.insertObject(beam);
+        df::Sound* p_sound = RM.getSound("laser");
+        if (p_sound)
+            p_sound->play();
     }
 }
 
@@ -218,4 +223,8 @@ void PlayerPointTracker::useBomb() {
     df::Vector pos = getPosition();
     Explosion* explosion = new Explosion(pos);
     WM.insertObject(explosion);
+    // Play "explode" sound.
+    df::Sound* p_sound = RM.getSound("explosion");
+    if (p_sound)
+        p_sound->play();
 }
