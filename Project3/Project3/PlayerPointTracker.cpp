@@ -201,7 +201,7 @@ void PlayerPointTracker::useLaser() {
     GridManager& grid = GridManager::getInstance();
 
     // maximum distance e.g. 10 cells
-    for (int i = 1; i <= 10; ++i) {
+    for (int i = 1; i <= 300; ++i) {
         df::Vector cell = pos + df::Vector(dir.getX() * i, dir.getY() * i);
 
         // Stop if outside playable area
