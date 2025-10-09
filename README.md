@@ -13,7 +13,6 @@ Header Files: Header files for the game code
     GameStart.h: header file for the start of the game, starts the game
     GridManager.h: header file for the grid system, used to calculate points with steps taken by players
     Marker.h: header file for the color trail, appears behind player or when an ability is used
-    Player.h: header file for the player (NOTE: this has been scrapped, a dud, we are not using this and instead using PlayerPointTracker instead)
     PlayerPointTracker.h: header file for the player, keeps tracks of player steps
     ScoreDisplay.h: header file for the score, converts steps to points
     Timer.h: header file for the timer, ends game once timer reaches 0
@@ -37,7 +36,6 @@ Source Files: C++ files for the game code
     GameStart.cpp
     GridManager.cpp
     Marker.cpp
-    Player.cpp
     PlayerPointTracker.cpp
     ScoreDisplay.cpp
     Timer.cpp
