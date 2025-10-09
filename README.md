@@ -46,11 +46,11 @@ HOW TO COMPILE:
 Extract the zip file, set environment path to PATH=%PATH%;$(solutiondir)libraries/SFML-3.0.0/bin in the properties tab under debugging Visual Studio 2022 (right click Project 3 to see the properties tab at the very bottom) and run the program in release mode
 
 PLAYER 1 CONTROLS:
-Use WASD to move
-Use Q to shoot laser in the facing direction
+Use WASD to move.
+ Use Q to shoot laser in the facing direction
 
 PLAYER 2 CONTROLS:
-Use UP, DOWN, LEFT, RIGHT to move
-Use Right CTRL to place bomb around the player
+Use UP, DOWN, LEFT, RIGHT to move.
+ Use Right CTRL to place bomb around the player
 
 TEAM: Avi - apal1@wpi.edu, Colin Masucci - cemasucci@wpi.edu
