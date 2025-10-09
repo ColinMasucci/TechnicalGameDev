@@ -8,7 +8,6 @@
 #include "WorldManager.h"
 #include "ResourceManager.h"
 
-#include "Player.h"
 #include "PlayerPointTracker.h"
 #include "ScoreDisplay.h"
 #include "Border.h"
@@ -71,8 +70,6 @@ void loadResources(void) {
 
 void populateWorld(void) {
     // Note: Constant speed not updated yet for PlayerPointTracker, but able to implement point system
-    //Player* p1 = new Player(1, df::Vector(5, 5));
-    //Player* p2 = new Player(2, df::Vector(50, 20));
 
     // --- Create border first (draws behind everything else) ---
     int left = 1;

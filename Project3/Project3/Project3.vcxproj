@@ -26,7 +26,6 @@
     <ClCompile Include="GameStart.cpp" />
     <ClCompile Include="GridManager.cpp" />
     <ClCompile Include="Marker.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerPointTracker.cpp" />
     <ClCompile Include="ScoreDisplay.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -38,7 +37,6 @@
     <ClInclude Include="GameStart.h" />
     <ClInclude Include="GridManager.h" />
     <ClInclude Include="Marker.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerPointTracker.h" />
     <ClInclude Include="ScoreDisplay.h" />
     <ClInclude Include="Timer.h" />
