@@ -86,7 +86,7 @@ void populateWorld(void) {
 
     new ScoreDisplay(p1, p2);
 
-    new Timer(30);
+    new Timer(360);
 
     WM.insertObject(p1);
     WM.insertObject(p2);

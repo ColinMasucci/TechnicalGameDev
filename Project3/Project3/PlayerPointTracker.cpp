@@ -14,6 +14,17 @@
 
 #include <iostream>
 
+static Border* getBorder() {
+    df::ObjectList borders = WM.objectsOfType("Border");
+    if (!borders.isEmpty()) {
+        df::ObjectListIterator it(&borders);
+        it.first();
+        if (!it.isDone()) {
+            return dynamic_cast<Border*>(it.currentObject());
+        }
+    }
+    return nullptr;
+}
 
 
 PlayerPointTracker::PlayerPointTracker(int id, df::Vector start_pos)
@@ -180,27 +191,25 @@ int PlayerPointTracker::draw() {
 }
 
 
-
 void PlayerPointTracker::useLaser() {
     df::Vector pos = getPosition();
     df::Vector dir = m_target_dir;
-    if (dir.getMagnitude() == 0)    // if not moving, pick default up
+    if (dir.getMagnitude() == 0)  // if not moving, pick default up
         dir = df::Vector(0, -1);
 
+    Border* border = getBorder();
     GridManager& grid = GridManager::getInstance();
 
     // maximum distance e.g. 10 cells
     for (int i = 1; i <= 10; ++i) {
-		df::Vector newDir = df::Vector(dir.getX() * i, dir.getY() * i);
-        df::Vector cell = pos + newDir;
+        df::Vector cell = pos + df::Vector(dir.getX() * i, dir.getY() * i);
 
-        // claim this cell
+        // Stop if outside playable area
+        if (border && border->isOutside(cell))
+            break;
+
         leaveMarker(cell);
 
-        // for animation, create a special marker (red beam)
-        Marker* beam = new Marker(m_player_id, cell);
-        //beam->setTemporary(true);         // we’ll remove it after some frames
-        //WM.insertObject(beam);
         df::Sound* p_sound = RM.getSound("laser");
         if (p_sound)
             p_sound->play();
@@ -210,15 +219,20 @@ void PlayerPointTracker::useLaser() {
 void PlayerPointTracker::useBomb() {
     df::Vector center = getPosition();
     GridManager& grid = GridManager::getInstance();
+    Border* border = getBorder();
 
     // 4x4 area centered on player
     int radius = 2;
     for (int dx = -radius; dx <= radius; ++dx) {
         for (int dy = -radius; dy <= radius; ++dy) {
             df::Vector cell = center + df::Vector(dx, dy);
-            leaveMarker(cell);
+
+            // Only color if inside border
+            if (!border || !border->isOutside(cell))
+                leaveMarker(cell);
         }
     }
+
     // spawn explosion
     df::Vector pos = getPosition();
     Explosion* explosion = new Explosion(pos);
