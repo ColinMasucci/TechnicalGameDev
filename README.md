@@ -6,7 +6,8 @@ FILE DESCRIPTION & CODE STRUCTURE (in Visual Studio 2022):
 
 📁 Project 3:
 Header Files: Header files for the game code
-    Border.h: header file for the border, keeps color trails (from abilities) and players inside
+    
+	Border.h: header file for the border, keeps color trails (from abilities) and players inside
     Explosion.h: header file for the explosion ability, quick animates it on screen when ability is activated
     GameOver.h: header file for the end of the game, displays who wins once the timer reaches 0
     GameStart.h: header file for the start of the game, starts the game
@@ -18,7 +19,8 @@ Header Files: Header files for the game code
     Timer.h: header file for the timer, ends game once timer reaches 0
 
 Resource Files: audio and sprite files for the game
-    explosion.txt: explosion ability sprite
+    
+	explosion.txt: explosion ability sprite
     marker1.txt: color trail for player 1 sprite
     marker2.txt: color trail for player 2 sprite
     player1.txt: player 1 sprite
@@ -27,7 +29,8 @@ Resource Files: audio and sprite files for the game
     player2_wins.txt: player 2 winning sprite
 
 Source Files: C++ files for the game code
-    Border.cpp: C++ for the border, you can understand the rest
+    
+	Border.cpp: C++ for the border, you can understand the rest
     Explosion.cpp
     game.cpp: Main file for running the game and setting up everything
     GameOver.cpp
