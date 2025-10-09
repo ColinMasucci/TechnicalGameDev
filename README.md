@@ -43,7 +43,7 @@ Source Files: C++ files for the game code
 libraries: Containing dragonfly library + SFML library
 
 HOW TO COMPILE:
-Extract the zip file, set environment path to PATH=%PATH%;$(solutiondir)libraries/SFML-3.0.0/bin in the properties tab under debugging Visual Studio 2022 (right click Project 3 to see the properties tab at the very bottom) and run the program in release mode
+Extract the zip file, set environment path to PATH=%PATH%;$(solutiondir)libraries/SFML-3.0.0/bin for both debug and release configurations in the properties tab under debugging tab Visual Studio 2022 (right click Project 3 to see the properties tab at the very bottom -> click debugging under configuration properties -> paste path into environment) and run the program in release mode
 
 PLAYER 1 CONTROLS:
 Use WASD to move.
